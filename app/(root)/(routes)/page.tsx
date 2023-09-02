@@ -2,6 +2,13 @@ import { SearchInput } from "@/components/search-input";
 import prismadb from "@/lib/prismadb";
 import { Categories } from "@/components/categories";
 
+interface RootPageProps {
+    searchParams: {
+        categoryId: string;
+        name: string;
+    }
+}
+
 const RootPage = async() => {
     const categories = await prismadb.category.findMany();
 
