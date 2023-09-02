@@ -24,7 +24,7 @@ export const Navbar = () => {
                 <Link href="/"/>
                 <h1 className={cn("hidden md:block text-xl md:text-3xl font-bold text-primary",
                 font.className)}> 
-                    Synthetica.AI
+                    SoulSynth.AI
                 </h1>
             </div>
             <div className="flex items-center gap-x-3">
@@ -33,7 +33,7 @@ export const Navbar = () => {
                     <Sparkles className="h-4 w-4 fill-white text-white ml-2" />
                 </Button>
                 <ModeToggle />
-                <UserButton />
+                <UserButton afterSignOutUrl="/"/>
             </div>
         </div>
     );
