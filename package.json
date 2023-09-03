@@ -58,5 +58,13 @@
   },
   "devDependencies": {
     "prisma": "^5.2.0"
+  },
+  "engines": {
+    "node": ">=14.0.0",
+    "npm": ">=7.0.0"
+  },
+  "resolutions": {
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
   }
 }
