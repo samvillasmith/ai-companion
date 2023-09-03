@@ -6,6 +6,7 @@ import { ThemeProvider } from '@/components/theme.provider'
 
 import { cn } from '@/lib/utils'
 import { Toaster } from '@/components/ui/toaster'
+import { PremiumModal } from '@/components/premium-modal'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -25,6 +26,7 @@ export default function RootLayout({
         <body className={cn("bg-system", inter.className)}>
         <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
           {children}
+          <PremiumModal />
           <Toaster />
         </ThemeProvider>
         </body>

@@ -9,6 +9,7 @@ import { MobileSidebar } from "./mobile-sidebar";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button"
+import { usePremiumModal } from "@/app/hooks/use-premium-modal";
 
 
 const font = Poppins({
@@ -17,6 +18,9 @@ const font = Poppins({
 });
 
 export const Navbar = () => {
+
+    const premiumModal = usePremiumModal();
+
     return(
         <div className="fixed w-full z-50 flex justify-between items-center py-2 px-4 border-b border-primary/10 bg-secondary h-16">
             <div className="flex items-center">
@@ -28,7 +32,7 @@ export const Navbar = () => {
                 </h1>
             </div>
             <div className="flex items-center gap-x-3">
-                <Button variant="premium" size="sm">
+                <Button onClick={premiumModal.onOpen} variant="premium" size="sm">
                     Upgrade 
                     <Sparkles className="h-4 w-4 fill-white text-white ml-2" />
                 </Button>
