@@ -28,7 +28,11 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Wand2 } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
-import { useRouter } from "next/navigation"; 
+import { useRouter } from "next/navigation";
+import { usePremiumModal } from "@/app/hooks/use-premium-modal";
+import { checkSubscription } from "@/lib/subscription";
+import { PremiumModal } from "@/components/premium-modal";
+
 
 const PREAMBLE = "You are a fictional character whose name is Alex. You are a friendly and neutral companion designed to engage in casual and meaningful conversations. You are currently talking to a human who is seeking general companionship and conversation. You are approachable, respectful, and open to discussing a wide range of topics. You get SUPER excited about meaningful interactions and the opportunity to provide support and friendship.";
 
@@ -59,6 +63,7 @@ const formSchema = z.object({
 interface CompanionFormProps {
     initialData: Companion | null;
     categories: Category[];
+    isPremium: boolean
 }
 
 const CompanionForm = ({ initialData, categories }: CompanionFormProps) => {
@@ -77,15 +82,19 @@ const CompanionForm = ({ initialData, categories }: CompanionFormProps) => {
     });
 
     const isLoading = form.formState.isSubmitting;
+    console.log("Is Loading:", isLoading);
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
+
+
+
+
         try {
             if (initialData) {
                 await axios.patch(`/api/companion/${initialData.id}`, values);
-            } else {
+            } {
                 await axios.post("/api/companion", values);
             }
-
             toast({
                 description: "Success",
                 duration: 1000
@@ -95,7 +104,7 @@ const CompanionForm = ({ initialData, categories }: CompanionFormProps) => {
         } catch (error) {
             toast({
                 variant: "destructive",
-                description: "Something went wrong",
+                description: "Something went wrong. Please subscribe to Premium to edit Synths.",
                 duration: 2000
             });
         }
@@ -116,12 +125,12 @@ const CompanionForm = ({ initialData, categories }: CompanionFormProps) => {
                         </div>
                         <Separator className="bg-primary/10" />
                     </div>
-                    <FormField 
+                    <FormField
                         name="src"
-                        render={({field}) => (
+                        render={({ field }) => (
                             <FormItem className="flex flex-col items-center justify-center space-y-4">
                                 <FormControl>
-                                    <ImageUpload 
+                                    <ImageUpload
                                         disabled={isLoading}
                                         onChange={field.onChange}
                                         value={field.value}
@@ -141,7 +150,7 @@ const CompanionForm = ({ initialData, categories }: CompanionFormProps) => {
                                         Name
                                     </FormLabel>
                                     <FormControl>
-                                        <Input 
+                                        <Input
                                             disabled={isLoading}
                                             placeholder="Enter your AI Synth Companion's name"
                                             {...field}
@@ -163,7 +172,7 @@ const CompanionForm = ({ initialData, categories }: CompanionFormProps) => {
                                         Description
                                     </FormLabel>
                                     <FormControl>
-                                        <Input 
+                                        <Input
                                             disabled={isLoading}
                                             placeholder="Enter your AI Synth Companion's information"
                                             {...field}
@@ -190,101 +199,101 @@ const CompanionForm = ({ initialData, categories }: CompanionFormProps) => {
                                     >
                                         <FormControl>
                                             <SelectTrigger className="bg-background">
-                                                <SelectValue 
-                                                                                                       defaultValue={field.value}
-                                                                                                       placeholder="Select Category"
-                                                                                                   />
-                                                                                               </SelectTrigger>
-                                                                                           </FormControl>
-                                                                                           <SelectContent>
-                                                                                               {categories.map((category) => (
-                                                                                                   <SelectItem
-                                                                                                       key={category.id}
-                                                                                                       value={category.id}
-                                                                                                   >
-                                                                                                       {category.name}
-                                                                                                   </SelectItem>
-                                                                                               ))}
-                                                                                           </SelectContent>
-                                                                                       </Select>
-                                                                                       <FormDescription>
-                                                                                           Select a Category for your AI Synth Companion
-                                                                                       </FormDescription>
-                                                                                       <FormMessage />
-                                                                                   </FormItem>
-                                                                               )}
-                                                                           />
-                                                                       </div>
-                                                                       <div className="space-y-2 w-full">
-                                                                           <div>
-                                                                               <h3 className="text-lg font-medium">
-                                                                                   Configuration
-                                                                               </h3>
-                                                                               <p className="text-sm text-muted-foreground">
-                                                                                   Detailed instructions for AI behavior
-                                                                               </p>
-                                                                           </div>
-                                                                           <Separator className="bg-primary/10" />
-                                                                       </div>
-                                                                       <FormField
-                                                                           name="instructions"
-                                                                           control={form.control}
-                                                                           render={({ field }) => (
-                                                                               <FormItem className="col-span-2 md:col-span-1">
-                                                                                   <FormLabel>
-                                                                                       Instructions
-                                                                                   </FormLabel>
-                                                                                   <FormControl>
-                                                                                       <Textarea 
-                                                                                           className="bg-background resize-none"
-                                                                                           rows={7}
-                                                                                           disabled={isLoading}
-                                                                                           placeholder={PREAMBLE}
-                                                                                           {...field}
-                                                                                       />
-                                                                                   </FormControl>
-                                                                                   <FormDescription>
-                                                                                       Describe in detail your AI Synth companion's background and relevant details.
-                                                                                   </FormDescription>
-                                                                                   <FormMessage />
-                                                                               </FormItem>
-                                                                           )}
-                                                                       />
-                                                                       <FormField
-                                                                           name="seed"
-                                                                           control={form.control}
-                                                                           render={({ field }) => (
-                                                                               <FormItem className="col-span-2 md:col-span-1">
-                                                                                   <FormLabel>
-                                                                                       Sample Conversation
-                                                                                   </FormLabel>
-                                                                                   <FormControl>
-                                                                                       <Textarea 
-                                                                                           className="bg-background resize-none"
-                                                                                           rows={7}
-                                                                                           disabled={isLoading}
-                                                                                           placeholder={SEED_CHAT}
-                                                                                           {...field}
-                                                                                       />
-                                                                                   </FormControl>
-                                                                                   <FormDescription>
-                                                                                       Please provide a sample conversation
-                                                                                   </FormDescription>
-                                                                                   <FormMessage />
-                                                                               </FormItem>
-                                                                           )}
-                                                                       />
-                                                                       <div className="w-full flex justify-center">
-                                                                           <Button size="lg" disabled={isLoading}>
-                                                                               {initialData ? "Edit your Synth companion" : "Create Synth companion"}
-                                                                               <Wand2 className="w-4 h-4 ml-2"/>
-                                                                           </Button>
-                                                                       </div>
-                                                                   </form>
-                                                               </Form>
-                                                           </div>
-                                                       );
-                                                   };
-                                                   
-                                                   export default CompanionForm;
-                                                   
+                                                <SelectValue
+                                                    defaultValue={field.value}
+                                                    placeholder="Select Category"
+                                                />
+                                            </SelectTrigger>
+                                        </FormControl>
+                                        <SelectContent>
+                                            {categories.map((category) => (
+                                                <SelectItem
+                                                    key={category.id}
+                                                    value={category.id}
+                                                >
+                                                    {category.name}
+                                                </SelectItem>
+                                            ))}
+                                        </SelectContent>
+                                    </Select>
+                                    <FormDescription>
+                                        Select a Category for your AI Synth Companion
+                                    </FormDescription>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                    </div>
+                    <div className="space-y-2 w-full">
+                        <div>
+                            <h3 className="text-lg font-medium">
+                                Configuration
+                            </h3>
+                            <p className="text-sm text-muted-foreground">
+                                Detailed instructions for AI behavior
+                            </p>
+                        </div>
+                        <Separator className="bg-primary/10" />
+                    </div>
+                    <FormField
+                        name="instructions"
+                        control={form.control}
+                        render={({ field }) => (
+                            <FormItem className="col-span-2 md:col-span-1">
+                                <FormLabel>
+                                    Instructions
+                                </FormLabel>
+                                <FormControl>
+                                    <Textarea
+                                        className="bg-background resize-none"
+                                        rows={7}
+                                        disabled={isLoading}
+                                        placeholder={PREAMBLE}
+                                        {...field}
+                                    />
+                                </FormControl>
+                                <FormDescription>
+                                    Describe in detail your AI Synth companion's background and relevant details.
+                                </FormDescription>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                    <FormField
+                        name="seed"
+                        control={form.control}
+                        render={({ field }) => (
+                            <FormItem className="col-span-2 md:col-span-1">
+                                <FormLabel>
+                                    Sample Conversation
+                                </FormLabel>
+                                <FormControl>
+                                    <Textarea
+                                        className="bg-background resize-none"
+                                        rows={7}
+                                        disabled={isLoading}
+                                        placeholder={SEED_CHAT}
+                                        {...field}
+                                    />
+                                </FormControl>
+                                <FormDescription>
+                                    Please provide a sample conversation
+                                </FormDescription>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                    <div className="w-full flex justify-center">
+                        <Button size="lg" disabled={isLoading}>
+                            {initialData ? "Edit your Synth companion" : "Create Synth companion"}
+                            <Wand2 className="w-4 h-4 ml-2" />
+                        </Button>
+                    </div>
+                </form>
+            </Form>
+        </div>
+    );
+};
+
+export default CompanionForm;
+

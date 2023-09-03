@@ -19,6 +19,7 @@ export const ImageUpload = ({
 
     useEffect(()=>{
         setIsMounted(true)
+        console.log("Component has mounted"); 
     }, []);
 
     if(!isMounted){
@@ -28,7 +29,12 @@ export const ImageUpload = ({
     return(
         <div className="space-y-4 w-full flex flex-col justify-center items-center">
             <CldUploadButton 
-                onUpload={(result: any) => onChange(result.info.secure_url)}
+                onUpload={(result: any) => {
+                    console.log("Clicked!");
+                    console.log('Uploading...', result);  // Debug log
+                    onChange(result.info.secure_url);
+                  }}
+                  
                 options={{
                     maxFiles: 1
                 }}
