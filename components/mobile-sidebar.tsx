@@ -12,7 +12,6 @@ export const MobileSidebar = ({
 }: {
     isPremium: boolean;
 }) => {
-    console.log("Is Premium in MobileSidebar:", isPremium); 
     return ( 
         <Sheet>
             <SheetTrigger className="md:hiden pr-4">
