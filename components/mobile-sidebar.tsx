@@ -4,8 +4,8 @@ import{
     Sheet, 
     SheetContent,
     SheetTrigger
-} from './ui/Sheet'
-import { Sidebar } from "./sidebar";
+} from '@/components/ui/Sheet'
+import { Sidebar } from "@/components/sidebar";
 
 export const MobileSidebar = ({
     isPremium
