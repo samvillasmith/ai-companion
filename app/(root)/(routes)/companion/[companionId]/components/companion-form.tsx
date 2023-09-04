@@ -63,7 +63,7 @@ const formSchema = z.object({
 interface CompanionFormProps {
     initialData: Companion | null;
     categories: Category[];
-    isPremium: boolean
+    isPremium?: boolean
 }
 
 const CompanionForm = ({ initialData, categories }: CompanionFormProps) => {
