@@ -4,7 +4,7 @@ import{
     Sheet, 
     SheetContent,
     SheetTrigger
-} from '@/components/ui/Sheet'
+} from '@/components/ui/sheet'
 import { Sidebar } from "@/components/sidebar";
 
 export const MobileSidebar = ({
