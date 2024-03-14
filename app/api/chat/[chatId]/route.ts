@@ -8,6 +8,13 @@ import { rateLimit } from "@/lib/rate-limit";
 import prismadb from "@/lib/prismadb";
 import { NextResponse } from "next/server";
 
+export const maxDuration = 300; 
+export const dynamic = 'force-dynamic';
+
+export function GET(request: Request) {
+  return new Response('{}', { status: 200 });
+}
+
 export async function POST(
     request: Request,
     { params }: { params: { chatId: string } }
