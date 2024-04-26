@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 import prismadb from "@/lib/prismadb";
 import { stripe } from "@/lib/stripe";
 
-export const maxDuration = 300; 
+export const maxDuration = 10; 
 export const dynamic = 'force-dynamic';
 
 export function GET(request: Request) {
