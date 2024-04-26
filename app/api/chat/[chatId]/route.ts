@@ -8,7 +8,7 @@ import { rateLimit } from "@/lib/rate-limit";
 import prismadb from "@/lib/prismadb";
 import { NextResponse } from "next/server";
 
-export const maxDuration = 300; 
+export const maxDuration = 10; 
 export const dynamic = 'force-dynamic';
 
 export function GET(request: Request) {
