@@ -20,7 +20,7 @@ model Companion {
   userName       String
   src            String
   name           String @db.Text
-  description    String @db.Text
+  description    String
   instructions   String @db.Text
   seed           String @db.Text
 
