@@ -1,4 +1,4 @@
-# AI Companion Platform
+# AI Companion Platform (SoulSynth.AI)
 
 Welcome to the AI Companion Platform, a cutting-edge application that brings personalized AI interactions to life. This full-stack project showcases the seamless integration of modern web technologies with advanced AI capabilities.
 
