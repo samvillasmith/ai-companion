@@ -1,35 +1,109 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# AI Companion Platform
+
+Welcome to the AI Companion Platform, a cutting-edge application that brings personalized AI interactions to life. This full-stack project showcases the seamless integration of modern web technologies with advanced AI capabilities.
+
+## Project Overview
+
+The AI Companion Platform is a React-based web application that offers users the ability to interact with 11 specialized chatbots and even create custom AI companions. Built with a focus on user engagement and personalization, this project demonstrates proficiency in full-stack development, AI integration, and creating captivating conversational experiences.
+
+🔗 [Live Demo](https://ai-companion-one.vercel.app/)
+
+## Features
+
+- 11 pre-configured AI chatbots for diverse interactions
+- Custom AI companion creation
+- User authentication system
+- Premium features with Stripe integration
+- Responsive design for seamless use across devices
+
+## Tech Stack
+
+- **Frontend**: React, TypeScript, Next.js, Tailwind CSS
+- **Backend**: Node.js, MySQL, Prisma ORM
+- **AI Integration**: OpenAI
+- **Authentication**: [Authentication method, e.g., JWT, Auth0]
+- **Payment Processing**: Stripe
+- **Deployment**: Vercel
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+- Node.js (v14 or later)
+- MySQL database
+- OpenAI API key
+- Stripe account for payment processing
+
+### Installation
+
+1. Clone the repository:
+   ```
+   git clone https://github.com/your-username/ai-companion-platform.git
+   cd ai-companion-platform
+   ```
+
+2. Install dependencies:
+   ```
+   npm install
+   ```
+
+3. Set up environment variables:
+   Create a `.env.local` file in the root directory and add the following:
+   ```
+   DATABASE_URL=your_mysql_connection_string
+   OPENAI_API_KEY=your_openai_api_key
+   STRIPE_SECRET_KEY=your_stripe_secret_key
+   NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=your_stripe_publishable_key
+   ```
+
+4. Run database migrations:
+   ```
+   npx prisma migrate dev
+   ```
+
+5. Start the development server:
+   ```
+   npm run dev
+   ```
+
+Visit `http://localhost:3000` to see the application running.
+
+## Project Structure
+
+```
+ai-companion-platform/
+├── components/
+├── pages/
+├── lib/
+├── prisma/
+├── public/
+├── styles/
+├── types/
+├── utils/
+├── .env.local
+├── next.config.js
+├── package.json
+├── README.md
+└── tsconfig.json
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## API Routes
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- `/api/companions`: CRUD operations for AI companions
+- `/api/chat`: Endpoint for AI chat interactions
+- `/api/user`: User management and authentication
+- `/api/stripe`: Stripe integration for premium features
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Contributing
 
-## Learn More
+We welcome contributions to the AI Companion Platform! Please read our [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
 
-To learn more about Next.js, take a look at the following resources:
+## License
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+This project is licensed under the [MIT License](LICENSE).
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Acknowledgments
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-# ai-companion
+- OpenAI for providing the AI capabilities
+- Vercel for hosting and deployment
+- All contributors and supporters of this project
